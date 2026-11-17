@@ -24,14 +24,12 @@ class RomanRegexEngine:
 
     def find_in_file(self, filepath: str) -> list[str]:
         # Находит все корректные римские числа в файле
-        path = Path(filepath)
-        if not path.exists():
-            raise FileNotFoundError(f"Файл по пути {filepath} не найден")
-        
-        with open(path, "r", encoding="utf-8") as file:
-            content = file.read()
-            
-        return self.find_in_text(content)
+        try:
+            with open(filepath, "r", encoding="utf-8") as file:
+                content = file.read()
+            return self.find_in_text(content)
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Файл по пути {filepath} не найден.")
 
     def find_on_web(self, url: str) -> list[str]:
         # Находит все корректные римские числа на стринице по URL
